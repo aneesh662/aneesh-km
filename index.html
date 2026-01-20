@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aneesh Mohanan | Portfolio</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root{
+      --text:#0b1220;
+      --muted:#5b6475;
+      --glass:rgba(255,255,255,.55);
+      --stroke:rgba(15,23,42,.12);
+      --shadow:0 24px 80px rgba(10,20,40,.10);
+      --shadow2:0 12px 35px rgba(10,20,40,.08);
+      --radius:26px;
+      --blue:#2f6bff;
+      --cyan:#00d3ff;
+
+      --bg1: radial-gradient(900px 600px at 8% 10%, rgba(47,107,255,.20), transparent 60%),
+             radial-gradient(900px 600px at 92% 18%, rgba(0,211,255,.16), transparent 60%),
+             radial-gradient(1200px 700px at 40% 100%, rgba(147,197,253,.26), transparent 55%),
+             linear-gradient(180deg, #f7faff, #ffffff);
+    }
+
+    /* ✅ Dark Theme Variables */
+    body.dark{
+      --text:#eaf0ff;
+      --muted:#b7c0d6;
+      --glass:rgba(18,24,40,.62);
+      --stroke:rgba(255,255,255,.14);
+      --shadow:0 24px 80px rgba(0,0,0,.35);
+      --shadow2:0 12px 35px rgba(0,0,0,.28);
+
+      --bg1: radial-gradient(900px 600px at 8% 10%, rgba(47,107,255,.18), transparent 60%),
+             radial-gradient(900px 600px at 92% 18%, rgba(0,211,255,.14), transparent 60%),
+             radial-gradient(1200px 700px at 40% 100%, rgba(99,102,241,.20), transparent 55%),
+             linear-gradient(180deg, #050914, #0b1020);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background: var(--bg1);
+      overflow-x:hidden;
+      transition: background .3s ease, color .3s ease;
+    }
+
+    /* ✅ Better tap highlight */
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    /* background bubbles */
+    .bubble{
+      position:fixed;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      filter: blur(45px);
+      opacity:.32;
+      z-index:-1;
+      animation: floaty 9s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .b1{left:-120px; top:120px; background:rgba(47,107,255,.35);}
+    .b2{right:-140px; top:60px; background:rgba(0,211,255,.35); animation-delay:2s;}
+    .b3{left:25%; bottom:-230px; background:rgba(99,102,241,.22); animation-delay:4s;}
+    @keyframes floaty{
+      0%,100%{transform:translateY(0) translateX(0) scale(1)}
+      50%{transform:translateY(-22px) translateX(18px) scale(1.03)}
+    }
+
+    .container{
+      width:min(1180px, 92%);
+      margin:0 auto;
+    }
+
+    /* Glass base */
+    .glass{
+      background:var(--glass);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition: background .25s ease, border-color .25s ease;
+    }
+    .glass::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(900px 240px at 10% 0%, rgba(255,255,255,.95), transparent 55%);
+      opacity:.18;
+      pointer-events:none;
+    }
+    .shine::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: linear-gradient(120deg, rgba(255,255,255,.55), rgba(255,255,255,0), rgba(255,255,255,.35));
+      transform: translateX(-60%);
+      animation: shine 4.2s linear infinite;
+      opacity:.18;
+      pointer-events:none;
+    }
+    @keyframes shine{
+      0%{transform:translateX(-60%)}
+      100%{transform:translateX(60%)}
+    }
+
+    /* NAV */
+    .navWrap{
+      position:sticky;
+      top:14px;
+      z-index:50;
+      margin-top:14px;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:12px 14px;
+      border-radius:999px;
+      box-shadow:var(--shadow2);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:800;
+      letter-spacing:-.4px;
+      position:relative;
+      z-index:2;
+      flex: 1;
+      min-width: 160px;
+    }
+    .logo{
+      width:38px;height:38px;border-radius:14px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display:grid;place-items:center;
+      color:white;font-weight:900;
+      box-shadow:0 12px 22px rgba(47,107,255,.22);
+      flex-shrink:0;
+    }
+
+    .links{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      position:relative;
+      z-index:2;
+    }
+    .links a{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      padding:9px 12px;
+      border-radius:999px;
+      transition:.25s ease;
+      position:relative;
+    }
+    .links a:hover{
+      background:rgba(255,255,255,.26);
+      color:var(--text);
+      box-shadow:0 10px 18px rgba(10,20,40,.06);
+    }
+
+    /* ✅ Active menu highlight */
+    .links a.active{
+      background:rgba(255,255,255,.28);
+      color:var(--text);
+      border:1px solid var(--stroke);
+      box-shadow:0 12px 22px rgba(10,20,40,.06);
+    }
+
+    .btn{
+      border:none; cursor:pointer; text-decoration:none;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:13px;
+      transition:.25s ease;
+      white-space:nowrap;
+      position:relative;
+      z-index:2;
+    }
+    .btn.mail{
+      background:rgba(255,255,255,.25);
+      border:1px solid var(--stroke);
+      color:var(--text);
+      box-shadow:0 10px 20px rgba(10,20,40,.05);
+    }
+    .btn.mail:hover{transform:translateY(-1px); background:rgba(255,255,255,.35)}
+    .btn.wa{
+      color:white;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow:0 16px 28px rgba(47,107,255,.18);
+    }
+    .btn.wa:hover{transform:translateY(-1px); box-shadow:0 18px 36px rgba(47,107,255,.22)}
+
+    /* ✅ Theme Toggle */
+    .toggleBtn{
+      width:42px;height:42px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.22);
+      border:1px solid var(--stroke);
+      color:var(--text);
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .toggleBtn:hover{transform:translateY(-1px); background:rgba(255,255,255,.32)}
+
+    /* ✅ Hamburger */
+    .hamburger{
+      width:42px;height:42px;
+      border-radius:999px;
+      display:none;
+      place-items:center;
+      background:rgba(255,255,255,.22);
+      border:1px solid var(--stroke);
+      color:var(--text);
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .hamburger:hover{transform:translateY(-1px); background:rgba(255,255,255,.32)}
+
+    /* ✅ Mobile Menu Panel */
+    .mobileMenu{
+      display:none;
+      margin-top:10px;
+      padding:14px;
+      border-radius:22px;
+      box-shadow:var(--shadow2);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(26px);
+      -webkit-backdrop-filter: blur(26px);
+      overflow:hidden;
+    }
+
+    /* ✅ Mobile open animation */
+    .mobileMenu.open{
+      display:block;
+      animation: slideDown .25s ease forwards;
+      transform-origin: top;
+    }
+    @keyframes slideDown{
+      from{opacity:0; transform: translateY(-8px) scale(.98)}
+      to{opacity:1; transform: translateY(0) scale(1)}
+    }
+
+    .mobileMenu a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 12px;
+      margin:6px 0;
+      text-decoration:none;
+      font-weight:800;
+      color:var(--text);
+      border-radius:14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      transition:.2s ease;
+    }
+    .mobileMenu a:hover{
+      background: rgba(255, 255, 255, 0.10);
+      transform:translateY(-1px);
+    }
+    .mobileMenu a.active{
+      background: rgba(255,255,255,.14);
+      border-color: var(--stroke);
+    }
+
+    /* ✅ Dark mode menu fix */
+    body.dark .mobileMenu{
+      background: rgba(10, 14, 26, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    body.dark .mobileMenu a{
+      background: rgba(10, 14, 26, 0.20);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+    body.dark .mobileMenu a:hover{
+      background: rgba(10, 14, 26, 0.30);
+    }
+
+    /* ✅ Mobile improvements */
+    .navRight{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:nowrap;
+    }
+    .btnText{display:inline;}
+
+    @media (max-width: 850px){
+      .links{display:none}
+      .hamburger{display:grid}
+    }
+    @media (max-width: 560px){
+      .nav{padding:10px 10px;}
+      .btn.mail, .btn.wa{padding:10px 12px;}
+      .btnText{display:none;} /* hide "Email / WhatsApp" text on very small screens */
+      .brand span{display:none;} /* keep logo only */
+      .brand{min-width:auto;}
+    }
+
+    /* HERO */
+    .hero{
+      margin-top:18px;
+      padding:24px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr}
+    }
+
+    .heroLeft{padding:26px 26px 24px;}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.20);
+      border:1px solid var(--stroke);
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      position:relative;
+      z-index:2;
+    }
+    .heroTitle{
+      margin:14px 0 10px;
+      font-size:46px;
+      line-height:1.05;
+      letter-spacing:-1.2px;
+      position:relative;
+      z-index:2;
+    }
+    @media (max-width: 520px){
+      .heroTitle{font-size:34px}
+      .heroLeft{padding:18px}
+      .hero{padding:16px}
+    }
+    .heroText{
+      margin:0 0 18px;
+      font-size:15px;
+      color:var(--muted);
+      line-height:1.7;
+      max-width:70ch;
+      position:relative;
+      z-index:2;
+    }
+
+    .heroBtns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+    .btnBlue{
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color:white;
+      box-shadow:0 16px 26px rgba(47,107,255,.18);
+    }
+    .btnBlue:hover{transform:translateY(-1px)}
+    .btnGhost{
+      background:rgba(255,255,255,.22);
+      border:1px solid var(--stroke);
+      color:var(--text);
+    }
+
+    /* RIGHT PHOTO AREA */
+    .heroRight{
+      padding:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .photoFrame{
+      width:100%;
+      min-height:380px;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:visible;
+    }
+    .proPhoto{
+      width:260px;
+      height:auto;
+      object-fit:contain;
+      border-radius:24px;
+      background:transparent;
+      opacity:0.92;
+      filter: drop-shadow(0 28px 38px rgba(10,20,40,.20));
+      transform: translateY(10px);
+    }
+    @media (max-width: 520px){
+      .photoFrame{min-height:280px}
+      .proPhoto{width:210px}
+    }
+
+    /* Sections */
+    .section{margin-top:18px;padding:18px 0;}
+    .sectionTitle{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:14px;
+      margin:10px 0 12px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.6px;
+    }
+    .sectionTitle span{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+    @media (max-width: 520px){
+      .sectionTitle{flex-direction:column; align-items:flex-start; gap:6px;}
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
+
+    .card{padding:18px;}
+    .card h3{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:-.3px;
+      position:relative;
+      z-index:2;
+    }
+    .ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.6;
+      position:relative;
+      z-index:2;
+    }
+    .ul b{color:var(--text)}
+    .ul a{color:var(--cyan); font-weight:800; text-decoration:none;}
+
+    /* ✅ Experience layout */
+    .expGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .expGrid{grid-template-columns:1fr}
+    }
+    .expHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+      position:relative;
+      z-index:2;
+    }
+    @media (max-width: 520px){
+      .expHeader{flex-direction:column;}
+      .expMeta{text-align:left;}
+    }
+    .expHeader h3{
+      margin:0;
+      font-size:16px;
+      letter-spacing:-.3px;
+    }
+    .expMeta{
+      text-align:right;
+      font-size:12.5px;
+      color:var(--muted);
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.20);
+      border:1px solid var(--stroke);
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      position:relative;
+      z-index:2;
+    }
+
+    .projects{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){.projects{grid-template-columns:1fr 1fr;}}
+    @media (max-width: 640px){.projects{grid-template-columns:1fr;}}
+
+    .projectCard{padding:16px;transition:.25s ease;}
+    .projectCard:hover{
+      transform: translateY(-5px);
+      box-shadow:0 30px 90px rgba(10,20,40,.14);
+    }
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:10px;
+      position:relative;
+      z-index:2;
+    }
+    .tag{
+      font-size:11px;
+      font-weight:900;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(47,107,255,.14);
+      border:1px solid rgba(47,107,255,.22);
+      color:#1b4cff;
+    }
+    body.dark .tag{
+      background:rgba(47,107,255,.24);
+      color:#a7c3ff;
+    }
+
+    .projectCard h4{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:-.3px;
+      position:relative;
+      z-index:2;
+    }
+    .projectCard p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+      position:relative;
+      z-index:2;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+    .actions a{
+      text-decoration:none;
+      font-size:12px;
+      font-weight:900;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.18);
+      color:var(--text);
+      transition:.25s ease;
+    }
+    .actions a:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.28);
+    }
+
+    footer{
+      padding:28px 0 50px;
+      color:var(--muted);
+      text-align:center;
+      font-size:12px;
+    }
+
+    /* ✅ small accessibility improvement */
+    button:focus-visible, a:focus-visible{
+      outline: 2px solid rgba(47,107,255,.55);
+      outline-offset: 3px;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+
+  <!-- NAV -->
+  <div class="navWrap container">
+    <div class="glass shine nav">
+      <a class="brand" href="#home">
+        <div class="logo">AM</div>
+        <span>Aneesh Mohanan</span>
+      </a>
+
+      <div class="links" id="desktopLinks">
+        <a href="#home" class="navLink">Welcome</a>
+        <a href="#experience" class="navLink">Experience</a>
+        <a href="#skills" class="navLink">Skills</a>
+        <a href="#projects" class="navLink">Projects</a>
+        <a href="#contact" class="navLink">Contact</a>
+      </div>
+
+      <div class="navRight">
+        <!-- ✅ Theme Toggle -->
+        <button class="toggleBtn" id="themeToggle" title="Light / Dark Mode" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        <a class="btn mail" href="mailto:kodiyattilaneesh@gmail.com" aria-label="Send Email">
+          <i class="fa-regular fa-paper-plane"></i> <span class="btnText">Email</span>
+        </a>
+
+        <a class="btn wa" href="https://wa.me/971555482885" target="_blank" aria-label="Open WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i> <span class="btnText">WhatsApp</span>
+        </a>
+
+        <!-- ✅ Hamburger -->
+        <button class="hamburger" id="menuBtn" title="Menu" aria-label="Open menu" aria-expanded="false">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ✅ Mobile Dropdown Menu -->
+    <div class="glass mobileMenu" id="mobileMenu">
+      <a href="#home" class="mLink">Welcome <i class="fa-solid fa-arrow-right-long" style="opacity:.6"></i></a>
+      <a href="#experience" class="mLink">Experience <i class="fa-solid fa-arrow-right-long" style="opacity:.6"></i></a>
+      <a href="#skills" class="mLink">Skills <i class="fa-solid fa-arrow-right-long" style="opacity:.6"></i></a>
+      <a href="#projects" class="mLink">Projects <i class="fa-solid fa-arrow-right-long" style="opacity:.6"></i></a>
+      <a href="#contact" class="mLink">Contact <i class="fa-solid fa-arrow-right-long" style="opacity:.6"></i></a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="home" class="container">
+    <div class="glass hero">
+      <div class="heroGrid">
+
+        <!-- LEFT -->
+        <div class="heroLeft">
+          <div class="pill">
+            <i class="fa-solid fa-sparkles"></i>
+            Finance | Data Analyst | BI & AI
+          </div>
+
+          <h1 class="heroTitle">Aneesh Mohanan,<br/>MBA</h1>
+
+          <p class="heroText">
+            I’m Aneesh Mohanan, an MBA graduate and Google Certified Data Analyst. I work at the intersection of finance, data, and technology, leveraging tools such as Excel, Power BI, Python, SQL, automation solutions, GitHub, and ERP systems to transform data into actionable business insights. With solid UAE experience, I bring strong domain knowledge and industry exposure across Real Estate, Hospitality, and Healthcare, supported by hands-on expertise in financial reporting, budgeting, forecasting, cost analysis, revenue tracking, and operational dashboard development.
+          </p>
+
+          <div class="heroBtns">
+            <a class="btn btnBlue" href="#projects"><i class="fa-solid fa-grid-2"></i> View Projects</a>
+            <a class="btn btnGhost" href="#contact"><i class="fa-solid fa-phone"></i> Get in Touch</a>
+            <a class="btn btnGhost" href="#experience"><i class="fa-solid fa-file-lines"></i> Resume</a>
+          </div>
+        </div>
+
+        <!-- RIGHT SMALL PHOTO -->
+     <!--   <div class="heroRight">
+          <div class="photoFrame">
+			<img class="proPhoto" src="me.png" alt="Aneesh Mohanan">
+          </div>
+        </div>-->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ EXPERIENCE -->
+  <section id="experience" class="section container">
+    <div class="sectionTitle">
+      <h2>Experience</h2>
+      <span>UAE • Finance • Analytics</span>
+    </div>
+
+
+      <!-- Domain & BI Highlights -->
+      <div class="glass card shine">
+        <h3>Industry & Reporting Experience</h3>
+        <ul class="ul">
+		 <li><b>Finance:</b> Financial Data Analysis</li>
+		 <li><b>Healthcare:</b> Operational data analysis</li>
+          <li><b>Real Estate Accounting:</b> Property Management (Belbadi Real Estate)</li>
+          <li><b>Hospitality Accounting:</b> Restaurant Operations (Mizu / Tartufi & Friends, Dubai)</li>
+          <li><b>MIS & BI:</b> Power BI dashboards (KPI, MTD/YTD, trends, variance etc...)</li>
+          <li><b>Automation:</b> Excel, Power Query, Python (Pandas), MySQL</li>
+          <li><b>Support:</b> Office IT support, troubleshooting, cloud & end-user support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="glass card shine" style="margin-top:14px;">
+      <h3>Management Information Systems, Data Analysis & Power BI Development</h3>
+      <ul class="ul">
+        <li>Analyzed historical financial data to deliver actionable management insights.</li>
+        <li>Developed MIS and management reports for receivables, payables, cash flow, and operational KPIs.</li>
+        <li>Built Power BI dashboards for financial and performance reporting (<b>MTD, YTD, trends, variance</b>).</li>
+        <li>Automated data extraction and reporting using <b>Excel, Power BI, Python (Pandas), and MySQL</b>.</li>
+        <li>Enhanced small business applications for data entry, tracking, and reporting automation.</li>
+        <li>Managed Power BI Service including report publishing, scheduled refresh, and role-level security.</li>
+        <li>Handled office IT support including system troubleshooting, hardware/software, cloud, and end-user support.</li>
+        <li>Provided data-driven insights to management to support strategic and operational decision making.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section container">
+    <div class="sectionTitle">
+      <h2>Skills & Tools</h2>
+      <span>Professional tools</span>
+    </div>
+
+    <div class="grid2">
+      <div class="glass card shine">
+        <h3>Core Data Analytics Skills</h3>
+        <ul class="ul">
+          <li><b>Data Analysis:</b> EDA, Cleaning, Visualization</li>
+          <li><b>Programming:</b> Python, SQL, DAX</li>
+          <li><b>Visualization:</b> Excel, Power BI, Looker, Matplotlib</li>
+          <li><b>Data Manipulation:</b> Power Query, Pandas, NumPy</li>
+		  <li><b>Cloud:</b> AWS, Databricks</li>
+          <li><b>Other:</b> Generative AI, GitHub, Streamlit, Netlify, Figma, render, vercel, n8n, Bootstrap</li>
+        </ul>
+      </div>
+
+      <div class="glass card shine">
+        <h3>Professional Strengths</h3>
+        <ul class="ul">
+          <li><b>Finance:</b> Accounting, Financial Statements, Budgeting, Forecasting, Reporting, VAT</li>
+          <li><b>Business:</b> Decision-making & performance optimization</li>
+          <li><b>IT Support:</b> Windows Server Administration</li>
+          <li><b>Domains:</b> Finance, Real Estate, Healthcare, Hospitality, FMCG, F&B</li>
+          <li><b>Studying:</b> Fabric, ML, AWS, Azure, Cybersecurity</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section container">
+    <div class="sectionTitle">
+      <h2>Projects</h2>
+      <span>Power BI • Python • SQL</span>
+    </div>
+
+    <div class="projects">
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">Power BI</span>
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <h4>Finance & VAT Analysis</h4>
+        <p>Financial + VAT dashboards using Power BI, DAX, Python & Excel to support decision-making.</p>
+        <div class="actions">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiNmJlNmMxNDktNzU3My00OGRlLTgwNDAtZDZlZTk1NjM0OTdlIiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9&pageName=9a16e7fbda5e88ca073b" target="_blank">Live</a>
+        </div>
+      </div>
+
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">Real Estate</span>
+          <i class="fa-solid fa-building"></i>
+        </div>
+        <h4>Property Management Analysis</h4>
+        <p>Reporting, budgeting, forecasting & performance analysis for real estate portfolio control.</p>
+        <div class="actions">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiODU1NzYxZjAtNDFiYy00OWQ5LWE0ZDYtYzM0NDRiZWYzM2JlIiwidCI6ImRmODY3OWNkLWE4MGUtNDVkOC05OWFjLWM4M2VkN2ZmOTVhMCJ9&pageName=45a74edcde39565721d6" target="_blank">Live</a>
+        </div>
+      </div>
+
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">FMCG</span>
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <h4>FMCG Dashboard Analysis</h4>
+        <p>Sales, purchases, profitability, stock levels & receivables analysis for FMCG business.</p>
+        <div class="actions">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiOTZiYjkxYTYtZjdkOS00MGRkLTgwNDgtZDUxMzQ1YzY1MDdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9&pageName=657cfe1ec229010ce026" target="_blank">Live</a>
+        </div>
+      </div>
+
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">Insurance</span>
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h4>Insurance Data Analysis</h4>
+        <p>Actionable insights into key metrics to improve performance and decision-making.</p>
+        <div class="actions">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiY2ZhZjVlMDMtZTk1ZC00NDA4LWFjOTAtMjJkY2Y1OWZjOTdkIiwidCI6ImM2ZTU0OWIzLTVmNDUtNDAzMi1hYWU5LWQ0MjQ0ZGM1YjJjNCJ9&pageName=758435fa75dd1fa2ecef" target="_blank">Live</a>
+        </div>
+      </div>
+
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">WEB</span>
+          <i class="fa-solid fa-globe"></i>
+        </div>
+        <h4>adiinnovation.com</h4>
+        <p>Designed, developed, and hosted the AdiInnovation website with a modern UI and optimized performance.</p>
+        <div class="actions">
+          <a href="https://www.adiinnovation.com" target="_blank">Live</a>
+        </div>
+      </div>
+
+      <div class="glass projectCard shine">
+        <div class="topRow">
+          <span class="tag">WEB</span>
+          <i class="fa-solid fa-store"></i>
+        </div>
+        <h4>Nuvly Foods</h4>
+        <p>Modern responsive site with WhatsApp-based online ordering integration.</p>
+        <div class="actions">
+          <a href="https://nuvly-foods.netlify.app" target="_blank">Live</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section container">
+    <div class="sectionTitle">
+      <h2>Contact</h2>
+      <span>Let’s connect</span>
+    </div>
+
+    <div class="glass card shine">
+      <ul class="ul">
+        <li><b>Address:</b> Khalidiya Street, Abu Dhabi, UAE</li>
+        <li><b>Email:</b> <a href="mailto:kodiyattilaneesh@gmail.com">kodiyattilaneesh@gmail.com</a></li>
+        <li><b>Phone:</b> +971 55 548 2885 | +91 858 990 0277</li>
+        <li><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/aneesh-mohanan-875916a6" target="_blank">Profile</a></li>
+        <li><b>WhatsApp:</b> <a href="https://wa.me/971555482885" target="_blank">Chat Now</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="container">
+    © <span id="year"></span> Aneesh Mohanan — White Mirror Portfolio
+  </footer>
+
+  <script>
+    // Footer Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ✅ Theme Toggle with LocalStorage
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function setTheme(mode){
+      if(mode === "dark"){
+        document.body.classList.add("dark");
+        themeIcon.className = "fa-solid fa-sun";
+      } else {
+        document.body.classList.remove("dark");
+        themeIcon.className = "fa-solid fa-moon";
+      }
+      localStorage.setItem("theme", mode);
+    }
+
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.body.classList.contains("dark");
+      setTheme(isDark ? "light" : "dark");
+    });
+
+    // ✅ Mobile Menu Toggle (animated + accessible)
+    const menuBtn = document.getElementById("menuBtn");
+    const menuIcon = document.getElementById("menuIcon");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    function toggleMenu(forceClose = false){
+      const isOpen = mobileMenu.classList.contains("open");
+
+      if(forceClose || isOpen){
+        mobileMenu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuIcon.className = "fa-solid fa-bars";
+      }else{
+        mobileMenu.classList.add("open");
+        menuBtn.setAttribute("aria-expanded", "true");
+        menuIcon.className = "fa-solid fa-xmark";
+      }
+    }
+
+    menuBtn.addEventListener("click", () => toggleMenu());
+
+    // ✅ Close menu when click link
+    document.querySelectorAll(".mLink").forEach(link => {
+      link.addEventListener("click", () => toggleMenu(true));
+    });
+
+    // ✅ Close mobile menu if clicking outside
+    document.addEventListener("click", (e) => {
+      const clickedInsideNav = e.target.closest(".navWrap");
+      if(!clickedInsideNav){
+        toggleMenu(true);
+      }
+    });
+
+    // ✅ Close mobile menu on ESC
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") toggleMenu(true);
+    });
+
+    // ✅ Active menu highlight while scrolling (desktop + mobile)
+    const sections = document.querySelectorAll("section[id]");
+    const allLinks = [...document.querySelectorAll(".navLink"), ...document.querySelectorAll(".mLink")];
+
+    const setActiveLink = (id) => {
+      allLinks.forEach(a => {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          setActiveLink(entry.target.id);
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px", threshold: 0 });
+
+    sections.forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
